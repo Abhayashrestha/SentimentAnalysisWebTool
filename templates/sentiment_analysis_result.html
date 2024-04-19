@@ -1,0 +1,137 @@
+
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="utf-8" />
+    <title> Sentiment Analysis </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta content="Dashboard Template" name="description" />
+    <meta content="MyraStudio" name="author" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="{% static "assets/images/favicon.ico" %}">
+
+    <!-- App css -->
+    <link href="{% static "assets/css/bootstrap.min.css" %}" rel="stylesheet" type="text/css" />
+    <link href="{% static "assets/css/icons.min.css" %}" rel="stylesheet" type="text/css" />
+    <link href="{% static "assets/css/theme.min.css" %}" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Begin page -->
+    <div id="layout-wrapper">
+        
+        <!-- ============================================================== -->
+        <!-- Start right Content here -->
+        <!-- ============================================================== -->
+        <div class="main-content">
+            <div class="page-content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                                <div class="card-body" style="max-height:600px;">
+                        
+                                    <h4 class="card-title">Bar Chart</h4>
+                                    
+                                    <h1>Sentiment Analysis Results</h1>
+                                
+
+                                    <canvas id="sentimentChart"></canvas>
+
+                                    <script>
+                                        // Parse chart data JSON
+                                        var chartData = JSON.parse('{{ chart_data_json|escapejs }}');
+
+                                        // Create Chart.js chart
+                                        var ctx = document.getElementById('sentimentChart').getContext('2d');
+                                        var sentimentChart = new Chart(ctx, {
+                                            type: 'bar',
+                                            data: {
+                                                labels: chartData.labels,
+                                                datasets: [{
+                                                    label: 'Sentiment Analysis',
+                                                    data: chartData.data,
+                                                    backgroundColor: [
+                                                        'rgba(75, 192, 192, 0.2)',
+                                                        'rgba(255, 99, 132, 0.2)',
+                                                        'rgba(255, 206, 86, 0.2)'
+                                                    ],
+                                                    borderColor: [
+                                                        'rgba(75, 192, 192, 1)',
+                                                        'rgba(255, 99, 132, 1)',
+                                                        'rgba(255, 206, 86, 1)'
+                                                    ],
+                                                    borderWidth: 1
+                                                }]
+                                            },
+                                            options: {
+                                                scales: {
+                                                    y: {
+                                                        beginAtZero: true
+                                                    }
+                                                }
+                                            }
+                                        });
+                                    </script>
+                                
+                                    
+                                </div> <!-- end card-body-->
+                        </div> <!-- end col -->
+                        
+                    </div>
+                    <!-- end row-->
+
+                </div> <!-- container-fluid -->
+            </div>
+            <!-- End Page-content -->
+
+            <footer class="footer">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            2024 © Results Dashboard.
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="text-sm-right d-none d-sm-block">
+                                Design & Develop by Abhaya
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+
+        </div>
+        <!-- end main content-->
+
+    </div>
+    <!-- END layout-wrapper -->
+
+    <!-- Overlay-->
+    <div class="menu-overlay"></div>
+
+
+    <!-- jQuery  -->
+    <script src="{% static "assets/js/jquery.min.js" %}"></script>
+    <script src="{% static "assets/js/bootstrap.bundle.min.js" %}"></script>
+    <script src="{% static "assets/js/metismenu.min.js" %}"></script>
+    <script src="{% static "assets/js/waves.js" %}"></script>
+    <script src="{% static "assets/js/simplebar.min.js" %}"></script>
+
+    <!-- Chart Js-->
+    <script src="{% static "assets/plugins/chart-js/chart.min.js" %}"></script>
+
+    <!-- Chart Custom Js-->
+    <script src="{% static "assets/pages/chartjs-demo.js" %}"></script>
+
+
+
+    <!-- App js -->
+    <script src="{% static "assets/js/theme.js" %}"></script>
+
+</body>
+
+</html>
+
+

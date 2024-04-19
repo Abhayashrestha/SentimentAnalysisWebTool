@@ -1,0 +1,575 @@
+
+<!doctype html>
+<html lang="zxx">
+    {% load static %}
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Sentiment Analysis</title>
+    <meta name="robots" content="noindex, follow" />
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- plugins css -->
+    <link rel="stylesheet" href="{% static "css/fonts.css" %}">
+    <link rel="stylesheet" href="{% static "css/plugins.css" %}">
+    <link rel="stylesheet" href="{% static "css/font-icons.css" %}">
+    <link rel="stylesheet" href="{% static "css/webfonts.css" %}">
+        
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="{% static "css/style.css" %}">
+    <!-- Responsive css -->
+    <link rel="stylesheet" href="{% static "css/responsive.css" %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/font-awesome.min.css">
+
+</head>
+
+<body>
+ 
+    <!-- Add your site or application content here -->
+
+<!-- Body main wrapper start -->
+<div class="body-wrapper">    
+    <!-- HEADER AREA START (header-5) -->
+<header class="ltn__header-area ltn__header-5 ltn__header-8 ltn__header-logo-and-mobile-menu-in-mobile ltn__header-transparent gradient-color-4---">
+    <!-- ltn__header-top-area start -->
+    <div class="ltn__header-top-area section-bg-6">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-7">
+                    <div class="ltn__top-bar-menu">
+                        <ul>
+                            <li><a href="mailto:info@webmail.com?Subject=Flower%20greetings%20to%20you"><i class="far fa-envelope"></i> info@webmail.com</a></li>
+                            <li><a href="locations.html"><i class="fas fa-map-marker-alt"></i> 15/A, Nest Tower, NYC</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="top-bar-right text-right">
+                        <div class="ltn__top-bar-menu">
+                            <ul>
+                                <li>
+                                    <!-- ltn__social-media -->
+                                    <div class="ltn__social-media">
+                                        <ul>
+                                            <li><a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a></li>
+                                            <li><a href="#" title="Twitter"><i class="fab fa-twitter"></i></a></li>
+                                            <li><a href="#" title="Instagram"><i class="fab fa-instagram"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ltn__header-top-area end -->
+    
+    <!-- ltn__header-middle-area start -->
+    <div class="ltn__header-middle-area ltn__header-sticky ltn__sticky-bg-white">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="site-logo-wrap">
+                        <div class="site-logo">
+                            <a href="index.html"><img src="{% static "img/logo1.png" %}"  height="60" width="130" alt="Logo"></a>
+                        </div>
+                    
+                    </div>
+                </div>
+                <div class="col header-menu-column menu-color-white---">
+                    <div class="header-menu d-none d-xl-block">
+                        <nav>
+                            <div class="ltn__main-menu">
+                                <ul>
+                                    <li class="menu-icon"><a href="#">Home</a></li>
+                                    <li class="menu-icon"><a href="#">News</a></li>
+                                    <li class="menu-icon"><a href="#">Pages</a></li>
+                                    <li><a href="contact.html">Contact</a></li>
+                                </ul>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+                <div class="ltn__header-options ltn__header-options-2 ">
+                   
+                    <!-- header-extra-button -->
+                    <div class="ltn__header-extra-btn">
+                        <a href="{% url "webApp:sentiment_analysis" %}" class="btn theme-btn-1 ltn_secondary-color mr-3 ">Try it Out</a>
+                    </div>
+                    <!-- Mobile Menu Button -->
+                    <div class="mobile-menu-toggle d-xl-none">
+                        <a href="#ltn__utilize-mobile-menu" class="ltn__utilize-toggle">
+                            <svg viewBox="0 0 800 600">
+                                <path d="M300,220 C300,220 520,220 540,220 C740,220 640,540 520,420 C440,340 300,200 300,200" id="top"></path>
+                                <path d="M300,320 L540,320" id="middle"></path>
+                                <path d="M300,210 C300,210 520,210 540,210 C740,210 640,530 520,410 C440,330 300,190 300,190" id="bottom" transform="translate(480, 320) scale(1, -1) translate(-480, -318) "></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ltn__header-middle-area end -->
+</header>
+<!-- HEADER AREA END -->
+
+
+
+    <!-- Utilize Mobile Menu Start -->
+    <div id="ltn__utilize-mobile-menu" class="ltn__utilize ltn__utilize-mobile-menu">
+        <div class="ltn__utilize-menu-inner ltn__scrollbar">
+            <div class="ltn__utilize-menu-head">
+                <div class="site-logo">
+                    <a href="index.html"><img src="img/logo.png" alt="Logo"></a>
+                </div>
+                <button class="ltn__utilize-close">×</button>
+            </div>
+            <div class="ltn__utilize-menu-search-form">
+                <form action="#">
+                    <input type="text" placeholder="Search...">
+                    <button><i class="fas fa-search"></i></button>
+                </form>
+            </div>
+            <div class="ltn__utilize-menu">
+                <ul>
+                    <li><a href="#">Home</a>
+                      
+                    </li>
+                    <li><a href="#">About</a>
+                    </li>
+                    <li><a href="#">Shop</a>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="ltn__utilize-buttons ltn__utilize-buttons-2">
+                <ul>
+                    <li>
+                        <a href="account.html" title="My Account">
+                            <span class="utilize-btn-icon">
+                                <i class="far fa-user"></i>
+                            </span>
+                            My Account
+                        </a>
+                    </li>
+                   
+                </ul>
+            </div>
+            <div class="ltn__social-media-2">
+                <ul>
+                    <li><a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a></li>
+                    <li><a href="#" title="Twitter"><i class="fab fa-twitter"></i></a></li>
+                    <li><a href="#" title="Linkedin"><i class="fab fa-linkedin"></i></a></li>
+                    <li><a href="#" title="Instagram"><i class="fab fa-instagram"></i></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- Utilize Mobile Menu End -->
+
+    <div class="ltn__utilize-overlay"></div>
+
+    <!-- SLIDER AREA START (slider-3) -->
+    <div class="ltn__slider-area ltn__slider-3  section-bg-2--- ltn__slider-normal-height">
+        <div class="ltn__slide-one-active slick-slide-arrow-1 slick-slide-dots-1">
+            <!-- ltn__slide-item -->
+            <div class="ltn__slide-item ltn__slide-item-2  ltn__slide-item-3-normal--- ltn__slide-item-3 bg-image bg-overlay-theme-black-60---" data-bg="{% static "img/background1.png" %}">
+                <div class="ltn__slide-item-inner  text-left">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12 align-self-center">
+                                <div class="slide-item-info">
+                                    <div class="slide-item-info-inner ltn__slide-animation">
+                                        <h6 class="slide-sub-title ltn__secondary-color animated text-uppercase"><span><i class="fas fa-square-full"></i></span> Extracting and Analysis of emotion.</h3>
+                                        <h5 class="slide-title animated text-white ">Understanding Sentiments</h5>
+                                        <div class="slide-brief animated">
+                                            <p class="text-white">Our sentiment analysis project delves into customer feedback to discern a spectrum of emotions. From joy and satisfaction to frustration and disappointment, we aim to capture diverse sentiments expressed by customers.</p>
+                                        </div>
+                                        <div class="btn-wrapper animated">
+                                            <a href="sentiment-analysis-tool.html" class="theme-btn-1 btn btn-effect-1">Analyze Feedback</a>
+                                            <a href="how-it-works.html" class="theme-btn-2 btn btn-effect-2">Learn More</a>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ltn__slide-item -->
+
+        </div>
+    </div>
+    <!-- SLIDER AREA END -->
+
+
+<!-- ABOUT SENTIMENT ANALYSIS AREA START -->
+<div class="ltn__about-us-area section-bg-1 bg-image pt-120 pb-90" data-bg="img/bg/31.jpg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 align-self-center">
+                <div class="about-us-info-wrap mb-50">
+                    <div class="section-title-area ltn__section-title-2">
+                        <h6 class="section-subtitle ltn__secondary-color"><span><i class="fas fa-square-full"></i></span> Web-based Sentiment Analysis</h6>
+                        <h1 class="section-title">Understanding Online Sentiments <br> Across Multiple Platforms</h1>
+                        <p>Explore sentiments expressed on various platforms like YouTube, Twitter, Facebook, and more through our web-based sentiment analysis tool.</p>
+                    </div>
+                    <p>Gain insights into the emotions and opinions of online users to inform decision-making, marketing strategies, and brand reputation management.</p>
+                    <div class="btn-wrapper">
+                        <a class="btn theme-btn-1 btn-effect-1" href="sentiment-analysis-tool.html">Try Analysis Tool</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 align-self-center">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="ltn__feature-item ltn__feature-item-6 box-shadow-1">
+                            <div class="ltn__feature-icon">
+                                <span><i class="fas fa-comments"></i></span>
+                            </div>
+                            <div class="ltn__feature-info">
+                                <h3><a href="youtube-analysis.html">YouTube Comments</a></h3>
+                                <p>Analyze sentiments expressed in YouTube comments to gauge audience reactions and feedback.</p>
+                                <a class="ltn__service-btn ltn__service-btn-2" href="youtube-analysis.html">Analyze Now <i class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="ltn__feature-item ltn__feature-item-6 box-shadow-1">
+                            <div class="ltn__feature-icon">
+                                <span><i class="fab fa-twitter"></i></span>
+                            </div>
+                            <div class="ltn__feature-info">
+                                <h3><a href="twitter-analysis.html">Twitter Sentiments</a></h3>
+                                <p>Track sentiments on Twitter to understand public opinion, trends, and brand perception.</p>
+                                <a class="ltn__service-btn ltn__service-btn-2" href="twitter-analysis.html">Analyze Now <i class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="ltn__feature-item ltn__feature-item-6 box-shadow-1">
+                            <div class="ltn__feature-icon">
+                                <span><i class="fab fa-facebook"></i></span>
+                            </div>
+                            <div class="ltn__feature-info">
+                                <h3><a href="facebook-analysis.html">Facebook Posts</a></h3>
+                                <p>Evaluate sentiments expressed in Facebook posts to understand user engagement and sentiment trends.</p>
+                                <a class="ltn__service-btn ltn__service-btn-2" href="facebook-analysis.html">Analyze Now <i class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="ltn__feature-item ltn__feature-item-6 box-shadow-1">
+                            <div class="ltn__feature-icon">
+                                <span><i class="fas fa-globe"></i></span>
+                            </div>
+                            <div class="ltn__feature-info">
+                                <h3><a href="web-analysis.html">Web Content</a></h3>
+                                <p>Perform sentiment analysis on web content from various sources to gather insights for market research.</p>
+                                <a class="ltn__service-btn ltn__service-btn-2" href="web-analysis.html">Analyze Now <i class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ABOUT SENTIMENT ANALYSIS AREA END -->
+
+
+  
+  
+<!-- FEATURE AREA START -->
+<div class="ltn__feature-area bg-image-top pt-120 pb-35" data-bg="img/bg/32.jpg">
+    <div class="container">
+        <div class="row bg-white pt-75 plr--5">
+            <div class="col-lg-12">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="section-title-area ltn__section-title-2 text-center">
+                            <h6 class="section-subtitle ltn__secondary-color"><span><i class="fas fa-square-full"></i></span> Sentiment Analysis Process</h6>
+                            <h1 class="section-title">How We Analyze Sentiments</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-lg-4 col-sm-6 col-12">
+                        <div class="ltn__feature-item ltn__feature-item-10 text-center">
+                            <div class="ltn__feature-icon">
+                                <span><i class="fas fa-search"></i></span>
+                            </div>
+                            <div class="ltn__feature-info">
+                                <h3><a href="youtube-analysis.html">Gathering Data</a></h3>
+                                <p>Collecting data from various platforms like YouTube, Twitter, and Facebook.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-6 col-12">
+                        <div class="ltn__feature-item ltn__feature-item-10 text-center">
+                            <div class="ltn__feature-icon">
+                                <span><i class="fas fa-cogs"></i></span>
+                            </div>
+                            <div class="ltn__feature-info">
+                                <h3><a href="data-analysis.html">Data Analysis</a></h3>
+                                <p>Analyzing the gathered data to extract insights and sentiment trends.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-6 col-12">
+                        <div class="ltn__feature-item ltn__feature-item-10 text-center">
+                            <div class="ltn__feature-icon">
+                                <span><i class="fas fa-chart-line"></i></span>
+                            </div>
+                            <div class="ltn__feature-info">
+                                <h3><a href="insights.html">Generating Insights</a></h3>
+                                <p>Generating actionable insights to inform decision-making and strategy development.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- FEATURE AREA END -->
+
+
+    <!-- PROGRESS BAR AREA START -->
+    <div class="ltn__progress-bar-area pt-45 pb-10">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ltn__progress-bar-wrap">
+                        <div class="ltn__progress-bar-inner">
+                            <div class="row">
+                                <div class="col-lg-3 col-sm-6">
+                                    <div class="ltn__progress-bar-item-2 text-center">
+                                        <div class="progress" data-value='78'>
+                                            <span class="progress-left">
+                                                <span class="progress-bar border-primary"></span>
+                                            </span>
+                                            <span class="progress-right">
+                                                <span class="progress-bar border-primary"></span>
+                                            </span>
+                                            <div class="progress-value">
+                                                <div class="progress-count">78<sup class="small">%</sup></div>
+                                            </div>
+                                        </div>
+                                        <div class="ltn__progress-info">
+                                            <h3>Project Done</h3>
+                                            <p>Construction Simulator</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-sm-6">
+                                    <div class="ltn__progress-bar-item-2 text-center">
+                                        <div class="progress" data-value='62'>
+                                            <span class="progress-left">
+                                                <span class="progress-bar border-danger"></span>
+                                            </span>
+                                            <span class="progress-right">
+                                                <span class="progress-bar border-danger"></span>
+                                            </span>
+                                            <div class="progress-value">
+                                                <div class="progress-count">62<sup class="small">%</sup></div>
+                                            </div>
+                                        </div>
+                                        <div class="ltn__progress-info">
+                                            <h3>Country Cover</h3>
+                                            <p>Construction Simulator</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-sm-6">
+                                    <div class="ltn__progress-bar-item-2 text-center">
+                                        <div class="progress" data-value='50'>
+                                            <span class="progress-left">
+                                                <span class="progress-bar border-success"></span>
+                                            </span>
+                                            <span class="progress-right">
+                                                <span class="progress-bar border-success"></span>
+                                            </span>
+                                            <div class="progress-value">
+                                                <div class="progress-count">50<sup class="small">%</sup></div>
+                                            </div>
+                                        </div>
+                                        <div class="ltn__progress-info">
+                                            <h3>Completed Co.</h3>
+                                            <p>Construction Simulator</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-sm-6">
+                                    <div class="ltn__progress-bar-item-2 text-center">
+                                        <div class="progress" data-value='90'>
+                                            <span class="progress-left">
+                                                <span class="progress-bar border-warning"></span>
+                                            </span>
+                                            <span class="progress-right">
+                                                <span class="progress-bar border-warning"></span>
+                                            </span>
+                                            <div class="progress-value">
+                                                <div class="progress-count">90<sup class="small">%</sup></div>
+                                            </div>
+                                        </div>
+                                        <div class="ltn__progress-info">
+                                            <h3>Happy Clients</h3>
+                                            <p>Construction Simulator</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- PROGRESS BAR AREA END -->
+
+
+
+
+    <!-- FOOTER AREA START -->
+    <footer class="ltn__footer-area  ">
+        <div class="footer-top-area  section-bg-2 plr--5">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-xl-3 col-md-6 col-sm-6 col-12">
+                        <div class="footer-widget footer-about-widget">
+                            <div class="footer-logo">
+                                <div class="site-logo">
+                                    <img src="img/logo-2.png" alt="Logo">
+                                </div>
+                            </div>
+                            <p>This is a web based project for sentiment analysis using high end tools and technologies.</p>
+                            <div class="footer-address">
+                                <ul>
+                                    <li>
+                                        <div class="footer-address-icon">
+                                            <i class="icon-placeholder"></i>
+                                        </div>
+                                        <div class="footer-address-info">
+                                            <p>Kathmandu , Nepal</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="footer-address-icon">
+                                            <i class="icon-call"></i>
+                                        </div>
+                                        <div class="footer-address-info">
+                                            <p><a href="tel:+0123-456789">9874563210</a></p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="footer-address-icon">
+                                            <i class="icon-mail"></i>
+                                        </div>
+                                        <div class="footer-address-info">
+                                            <p><a href="mailto:example@example.com">abhayashrestha@gmail.com</a></p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="ltn__social-media mt-20">
+                                <ul>
+                                    <li><a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a></li>
+                                    <li><a href="#" title="Twitter"><i class="fab fa-twitter"></i></a></li>
+                                    <li><a href="#" title="Linkedin"><i class="fab fa-linkedin"></i></a></li>
+                                    <li><a href="#" title="Youtube"><i class="fab fa-youtube"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="footer-widget footer-menu-widget clearfix">
+                            <h4 class="footer-title">Company</h4>
+                            <div class="footer-menu">
+                                <ul>
+                                    <li><a href="about.html">About</a></li>
+                                    <li><a href="shop.html">All Products</a></li>
+                                    <li><a href="locations.html">Locations Map</a></li>
+                                    <li><a href="faq.html">FAQ</a></li>
+                                    <li><a href="contact.html">Contact us</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="footer-widget footer-menu-widget clearfix">
+                            <h4 class="footer-title">Services</h4>
+                            <div class="footer-menu">
+                                <ul>
+                                    <li><a href="login.html">Login</a></li>
+                                    <li><a href="account.html">My account</a></li>
+                                    <li><a href="about.html">Terms & Conditions</a></li>
+                                    <li><a href="about.html">Promotional Offers</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="footer-widget footer-menu-widget clearfix">
+                            <h4 class="footer-title">Customer Care</h4>
+                            <div class="footer-menu">
+                                <ul>
+                                    <li><a href="login.html">Login</a></li>
+                                    <li><a href="account.html">My account</a></li>
+                                    <li><a href="wishlist.html">Wish List</a></li>
+                                    <li><a href="order-tracking.html">Order tracking</a></li>
+                                    <li><a href="faq.html">FAQ</a></li>
+                                    <li><a href="contact.html">Contact us</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                
+                </div>
+            </div>
+        </div>
+        <div class="ltn__copyright-area ltn__copyright-2 section-bg-7  plr--5">
+            <div class="container-fluid ltn__border-top-2">
+                <div class="row">
+                    <div class="col-md-6 col-12 align-self-center">
+                        <div class="ltn__copyright-menu text-right">
+                            <ul>
+                                <li><a href="#">Terms & Conditions</a></li>
+                                <li><a href="#">Claim</a></li>
+                                <li><a href="#">Privacy & Policy</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- FOOTER AREA END -->
+
+
+   
+</div>
+<!-- Body main wrapper end -->
+
+    <!-- preloader area start -->
+    <div class="preloader d-none" id="preloader">
+        <div class="preloader-inner">
+            <div class="spinner">
+                <div class="dot1"></div>
+                <div class="dot2"></div>
+            </div>
+        </div>
+    </div>
+    <!-- preloader area end -->
+
+    <!-- All JS Plugins -->
+    <script src="{% static "js/plugins.js" %}"></script>
+    <!-- Main JS -->
+    <script src="{% static "js/main.js" %}"></script>
+  
+</body>
+</html>
+
