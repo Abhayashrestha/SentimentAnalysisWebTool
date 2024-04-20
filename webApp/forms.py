@@ -1,5 +1,7 @@
 
+
 from django import forms
+from .models import Enquiry
 
 class SentimentAnalysisForm(forms.Form):
     url = forms.URLField(required=False, label='URL')
@@ -19,3 +21,27 @@ class SentimentAnalysisForm(forms.Form):
         super().__init__(*args, **kwargs)
         for field_name in self.fields:
             self.fields[field_name].widget.attrs.update({'class': 'form-control'})
+
+
+
+
+class ContactForm(forms.ModelForm):
+    class Meta:
+        model = Enquiry
+        fields = ['name', 'email', 'phone', 'service', 'message']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        placeholders = {
+            'name': 'Enter your name',
+            'email': 'Enter email address',
+            'phone': 'Enter phone number',
+            'service': 'Enter Service',
+            'message': 'Enter message',
+        }
+        for field_name in self.fields:
+            self.fields[field_name].widget.attrs.update({
+                'class': 'form-control',
+                'placeholder': placeholders.get(field_name, ''),
+            })
+
