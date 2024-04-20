@@ -39,7 +39,7 @@
                     <div class="ltn__top-bar-menu">
                         <ul>
                             <li><a href="mailto:info@webmail.com?Subject=Flower%20greetings%20to%20you"><i class="far fa-envelope"></i> info@webmail.com</a></li>
-                            <li><a href="locations.html"><i class="fas fa-map-marker-alt"></i> 15/A, Nest Tower, NYC</a></li>
+                            <li><a href="locations.html"><i class="fas fa-map-marker-alt"></i> Dhapakhel , Lalitpur</a></li>
                         </ul>
                     </div>
                 </div>
@@ -83,10 +83,10 @@
                         <nav>
                             <div class="ltn__main-menu">
                                 <ul>
-                                    <li class="menu-icon"><a href="#">Home</a></li>
-                                    <li class="menu-icon"><a href="#">News</a></li>
+                                    <li class="menu-icon"><a href="{% url "index" %}">Home</a></li>
+                                    <li class="menu-icon"><a href="{% url "webApp:news" %}">News</a></li>
                                     <li class="menu-icon"><a href="#">Pages</a></li>
-                                    <li><a href="contact.html">Contact</a></li>
+                                    <li><a href="{% url "contact" %}">Contact</a></li>
                                 </ul>
                             </div>
                         </nav>
@@ -140,8 +140,8 @@
                     </li>
                     <li><a href="#">About</a>
                     </li>
-                    <li><a href="#">Shop</a>
-                    <li><a href="contact.html">Contact</a></li>
+                   
+                    <li><a href="{% url "contact" %}">Contact</a></li>
                 </ul>
             </div>
             <div class="ltn__utilize-buttons ltn__utilize-buttons-2">
@@ -215,11 +215,11 @@
                     <div class="section-title-area ltn__section-title-2">
                         <h6 class="section-subtitle ltn__secondary-color"><span><i class="fas fa-square-full"></i></span> Web-based Sentiment Analysis</h6>
                         <h1 class="section-title">Understanding Online Sentiments <br> Across Multiple Platforms</h1>
-                        <p>Explore sentiments expressed on various platforms like YouTube, Twitter, Facebook, and more through our web-based sentiment analysis tool.</p>
+                        <p>Explore sentiments expressed on various platforms like YouTube, Twitter, Ekantipur, and more through our web-based sentiment analysis tool.</p>
                     </div>
                     <p>Gain insights into the emotions and opinions of online users to inform decision-making, marketing strategies, and brand reputation management.</p>
                     <div class="btn-wrapper">
-                        <a class="btn theme-btn-1 btn-effect-1" href="sentiment-analysis-tool.html">Try Analysis Tool</a>
+                        <a class="btn theme-btn-1 btn-effect-1" href="{% url "webApp:sentiment_analysis" %}">Try Analysis Tool</a>
                     </div>
                 </div>
             </div>
@@ -233,31 +233,31 @@
                             <div class="ltn__feature-info">
                                 <h3><a href="youtube-analysis.html">YouTube Comments</a></h3>
                                 <p>Analyze sentiments expressed in YouTube comments to gauge audience reactions and feedback.</p>
-                                <a class="ltn__service-btn ltn__service-btn-2" href="youtube-analysis.html">Analyze Now <i class="fas fa-arrow-right"></i></a>
+                                <a class="ltn__service-btn ltn__service-btn-2" href="{% url "webApp:sentiment_analysis" %}">Analyze Now <i class="fas fa-arrow-right"></i></a>
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="ltn__feature-item ltn__feature-item-6 box-shadow-1">
                             <div class="ltn__feature-icon">
-                                <span><i class="fab fa-twitter"></i></span>
+                                <span><i class="fa fa-newspaper"></i></span>
                             </div>
                             <div class="ltn__feature-info">
-                                <h3><a href="twitter-analysis.html">Twitter Sentiments</a></h3>
+                                <h3><a href="twitter-analysis.html">Ekantipur Sentiments</a></h3>
                                 <p>Track sentiments on Twitter to understand public opinion, trends, and brand perception.</p>
-                                <a class="ltn__service-btn ltn__service-btn-2" href="twitter-analysis.html">Analyze Now <i class="fas fa-arrow-right"></i></a>
+                                <a class="ltn__service-btn ltn__service-btn-2" href="{% url "webApp:sentiment_analysis" %}">Analyze Now <i class="fas fa-arrow-right"></i></a>
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="ltn__feature-item ltn__feature-item-6 box-shadow-1">
                             <div class="ltn__feature-icon">
-                                <span><i class="fab fa-facebook"></i></span>
+                                <span><i class="fab fa-reddit"></i></span>
                             </div>
                             <div class="ltn__feature-info">
-                                <h3><a href="facebook-analysis.html">Facebook Posts</a></h3>
-                                <p>Evaluate sentiments expressed in Facebook posts to understand user engagement and sentiment trends.</p>
-                                <a class="ltn__service-btn ltn__service-btn-2" href="facebook-analysis.html">Analyze Now <i class="fas fa-arrow-right"></i></a>
+                                <h3><a href="facebook-analysis.html">Reddit Posts</a></h3>
+                                <p>Evaluate sentiments expressed in reddit posts to understand user engagement and sentiment trends.</p>
+                                <a class="ltn__service-btn ltn__service-btn-2" href="{% url "webApp:sentiment_analysis" %}">Analyze Now <i class="fas fa-arrow-right"></i></a>
                             </div>
                         </div>
                     </div>
@@ -269,7 +269,7 @@
                             <div class="ltn__feature-info">
                                 <h3><a href="web-analysis.html">Web Content</a></h3>
                                 <p>Perform sentiment analysis on web content from various sources to gather insights for market research.</p>
-                                <a class="ltn__service-btn ltn__service-btn-2" href="web-analysis.html">Analyze Now <i class="fas fa-arrow-right"></i></a>
+                                <a class="ltn__service-btn ltn__service-btn-2" href="{% url "webApp:sentiment_analysis" %}">Analyze Now <i class="fas fa-arrow-right"></i></a>
                             </div>
                         </div>
                     </div>
@@ -338,101 +338,6 @@
 <!-- FEATURE AREA END -->
 
 
-    <!-- PROGRESS BAR AREA START -->
-    <div class="ltn__progress-bar-area pt-45 pb-10">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="ltn__progress-bar-wrap">
-                        <div class="ltn__progress-bar-inner">
-                            <div class="row">
-                                <div class="col-lg-3 col-sm-6">
-                                    <div class="ltn__progress-bar-item-2 text-center">
-                                        <div class="progress" data-value='78'>
-                                            <span class="progress-left">
-                                                <span class="progress-bar border-primary"></span>
-                                            </span>
-                                            <span class="progress-right">
-                                                <span class="progress-bar border-primary"></span>
-                                            </span>
-                                            <div class="progress-value">
-                                                <div class="progress-count">78<sup class="small">%</sup></div>
-                                            </div>
-                                        </div>
-                                        <div class="ltn__progress-info">
-                                            <h3>Project Done</h3>
-                                            <p>Construction Simulator</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-sm-6">
-                                    <div class="ltn__progress-bar-item-2 text-center">
-                                        <div class="progress" data-value='62'>
-                                            <span class="progress-left">
-                                                <span class="progress-bar border-danger"></span>
-                                            </span>
-                                            <span class="progress-right">
-                                                <span class="progress-bar border-danger"></span>
-                                            </span>
-                                            <div class="progress-value">
-                                                <div class="progress-count">62<sup class="small">%</sup></div>
-                                            </div>
-                                        </div>
-                                        <div class="ltn__progress-info">
-                                            <h3>Country Cover</h3>
-                                            <p>Construction Simulator</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-sm-6">
-                                    <div class="ltn__progress-bar-item-2 text-center">
-                                        <div class="progress" data-value='50'>
-                                            <span class="progress-left">
-                                                <span class="progress-bar border-success"></span>
-                                            </span>
-                                            <span class="progress-right">
-                                                <span class="progress-bar border-success"></span>
-                                            </span>
-                                            <div class="progress-value">
-                                                <div class="progress-count">50<sup class="small">%</sup></div>
-                                            </div>
-                                        </div>
-                                        <div class="ltn__progress-info">
-                                            <h3>Completed Co.</h3>
-                                            <p>Construction Simulator</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-sm-6">
-                                    <div class="ltn__progress-bar-item-2 text-center">
-                                        <div class="progress" data-value='90'>
-                                            <span class="progress-left">
-                                                <span class="progress-bar border-warning"></span>
-                                            </span>
-                                            <span class="progress-right">
-                                                <span class="progress-bar border-warning"></span>
-                                            </span>
-                                            <div class="progress-value">
-                                                <div class="progress-count">90<sup class="small">%</sup></div>
-                                            </div>
-                                        </div>
-                                        <div class="ltn__progress-info">
-                                            <h3>Happy Clients</h3>
-                                            <p>Construction Simulator</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- PROGRESS BAR AREA END -->
-
-
-
 
     <!-- FOOTER AREA START -->
     <footer class="ltn__footer-area  ">
@@ -491,10 +396,10 @@
                             <div class="footer-menu">
                                 <ul>
                                     <li><a href="about.html">About</a></li>
-                                    <li><a href="shop.html">All Products</a></li>
+                                    
                                     <li><a href="locations.html">Locations Map</a></li>
                                     <li><a href="faq.html">FAQ</a></li>
-                                    <li><a href="contact.html">Contact us</a></li>
+                                    <li><a href="{% url "contact" %}">Contact us</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -507,22 +412,17 @@
                                     <li><a href="login.html">Login</a></li>
                                     <li><a href="account.html">My account</a></li>
                                     <li><a href="about.html">Terms & Conditions</a></li>
-                                    <li><a href="about.html">Promotional Offers</a></li>
                                 </ul>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-3">
                         <div class="footer-widget footer-menu-widget clearfix">
-                            <h4 class="footer-title">Customer Care</h4>
                             <div class="footer-menu">
                                 <ul>
                                     <li><a href="login.html">Login</a></li>
-                                    <li><a href="account.html">My account</a></li>
-                                    <li><a href="wishlist.html">Wish List</a></li>
-                                    <li><a href="order-tracking.html">Order tracking</a></li>
                                     <li><a href="faq.html">FAQ</a></li>
-                                    <li><a href="contact.html">Contact us</a></li>
+                                    <li><a href="{% url "contact" %}">Contact us</a></li>
                                 </ul>
                             </div>
                         </div>

@@ -1,27 +1,28 @@
-import io
 import json
 import time
 import pandas as pd
-import matplotlib
 import requests
+from django.shortcuts import render
 
-from textAnalyis import settings
-matplotlib.use('Agg')  # Use a non-interactive backend
-import matplotlib.pyplot as plt
-import seaborn as sns
+import os
+os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
+
+import logging
+logging.getLogger('tensorflow').setLevel(logging.ERROR)
+
 from transformers import pipeline
 from googletrans import Translator
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
 
-from django.shortcuts import render
 from .forms import SentimentAnalysisForm
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+
+
 
 
 sentiment_analyzer = pipeline('sentiment-analysis', model="distilbert-base-uncased-finetuned-sst-2-english")
@@ -41,11 +42,11 @@ def translate_text(text, target_lang='en'):
     try:
         if text:
             translator = Translator()
-            print(f"Translating text: {text}")
+            # print(f"Translating text: {text}")
             translation = translator.translate(text, dest=target_lang)
             if translation is not None:
                 translated_text = translation.text
-                print(f"Translated text: {translated_text}")
+                # print(f"Translated text: {translated_text}")
                 return translated_text
             else:
                 print("Translation failed: No translation available")
@@ -82,9 +83,6 @@ def fetch_comments_selenium(url, element_type, class_name):
         driver.quit()
     return comments
 
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 
 def fetch_comments_twitter(url):
     driver = get_driver()
@@ -159,38 +157,34 @@ def fetch_comments_youtube(url, max_comments=50):
 
 
 
-def fetch_comments_reddit(url, max_comment_loads=2):
-    driver = get_driver()
-    driver.get(url)
-    time.sleep(5)  
+import praw
+
+def fetch_comments_reddit(url):
+    # Initialize Reddit instance
+    reddit = praw.Reddit(
+        client_id="ld12TKPdssnr5ydZiLcFYA" ,
+        client_secret="g2RyGn4rsTZhEt2RBvWc-NMj-jbdTA",
+        user_agent="textAnalyis by u/Aveaya"
+    )
+
+    # Extract the post ID from the URL
+    post_id = url.split('/')[-3]
 
     try:
-        see_more_buttons = driver.find_elements(By.XPATH, "//button[text()='See More']")
-        for button in see_more_buttons:
-            driver.execute_script("arguments[0].click();", button)
-            time.sleep(1)
-    except Exception as e:
-        print(f"Error clicking 'See More': {e}")
+        # Fetch the Reddit submission
+        submission = reddit.submission(id=post_id)
 
-    body = driver.find_element(By.TAG_NAME, 'body')
-    for _ in range(max_comment_loads):
-        body.send_keys(Keys.PAGE_DOWN)
-        time.sleep(2)  # Adjust timing based on your network speed
+        # Fetch the comments of the submission
+        submission.comments.replace_more(limit=50)
+        comments = [comment.body for comment in submission.comments.list()]
 
-    comments = []
-    try:
-        comment_elements = driver.find_elements(By.CSS_SELECTOR, 'div[data-test-id="comment"]')
-        for comment_element in comment_elements:
-            comment_text = comment_element.find_element(By.CSS_SELECTOR, 'div[data-test-id="comment-text"]').text
-            if comment_text:
-                comments.append(comment_text)
+        print(f"Fetched {len(comments)} comments: {comments}")
+        return comments
     except Exception as e:
         print(f"An error occurred while fetching comments: {e}")
-    finally:
-        driver.quit()
+        return []
 
-    print(f"Fetched {len(comments)} comments: {comments}")
-    return comments
+
 
 
 def sentiment_analysis(request):
@@ -209,8 +203,13 @@ def sentiment_analysis(request):
                         comments = fetch_comments_youtube(url)
                     elif 'twitter.com' in url:
                         comments = fetch_comments_twitter(url)
+                        
                     elif 'reddit.com' in url:
                         comments = fetch_comments_reddit(url)
+
+                    elif 'ekantipur.com' in url:
+                        comments = fetch_news(request, url)
+                        
                 elif file:
                     try:
                         df = pd.read_csv(file)
@@ -222,9 +221,7 @@ def sentiment_analysis(request):
                     except Exception as e:
                         return render(request, 'sentiment_analysis_form.html', {'form': form, 'error': f'Error reading file: {e}'})
 
-
                 translated_comments = [translate_text(comment) for comment in comments]
-                print(f"Translated comments: {translated_comments}")
 
                 # Perform sentiment analysis only on translated comments
                 sentiments = [analyze_sentiment(comment) for comment in translated_comments if comment]
@@ -234,11 +231,16 @@ def sentiment_analysis(request):
                 for idx, sentiment in enumerate(sentiments):
                     if sentiment is None:
                         print(f"Sentiment analysis failed for comment {idx + 1}")
-                    else:
-                        print("=====================" , sentiment)
 
-                
-                
+                # Print comments along with their sentiment analysis results
+                for idx, (comment, sentiment) in enumerate(zip(translated_comments, sentiments)):
+                    if sentiment:
+                        label = sentiment[0]['label']
+                        score = sentiment[0]['score']
+                        print(f"Comment {idx + 1}:")
+                        print(f"Text: {comment}")
+                        print(f"Sentiment: {label} with a confidence score of {score}")
+                        print()
                 
                 # Count the number of positive, negative, and neutral sentiments
                 positive_count = sum(1 for sentiment in sentiments if sentiment and sentiment[0]['label'] == 'POSITIVE')
@@ -250,16 +252,19 @@ def sentiment_analysis(request):
                 # Prepare data for Chart.js
                 labels = ['Positive', 'Negative', 'Neutral']
                 data = [positive_count, negative_count, neutral_count]
+                total_data = sum(data)
 
                 print(data)
                 chart_data = {
                     'labels': labels,
                     'data': data,
+                    'total_data':total_data ,
                 }
                 chart_data_json = json.dumps(chart_data)
 
                 context = {
                     'form': form,
+                    'url' : url ,
                     'chart_data_json': chart_data_json,
                 }
                 return render(request, 'sentiment_analysis_result.html', context)
@@ -269,5 +274,71 @@ def sentiment_analysis(request):
     else:
         form = SentimentAnalysisForm()
     return render(request, 'sentiment_analysis_form.html', {'form': form})
+
+
+
+
+import time
+
+def fetch_news(request, url):
+    options = Options()
+    options.headless = True  # Set headless mode to True to run Chrome in the background
+    driver = webdriver.Chrome(options=options)
+    
+    try:
+        driver.get(url)
+        time.sleep(5)  # Wait for the page to load (you can adjust the wait time as needed)
+
+        # Find all articles on the page
+        articles = driver.find_elements(By.TAG_NAME, 'article')
+        comments = []
+        news_list = []
+
+        for article in articles:
+            try:
+                # Find the heading of each article (inside h2 tag)
+                title_element = WebDriverWait(article, 10).until(EC.presence_of_element_located((By.TAG_NAME, 'h2')))
+                title_text = title_element.text.strip()
+
+                # Extract the href attribute of the 'a' tag inside the title
+                title_link = driver.current_url.split("/news")[0] + title_element.find_element(By.TAG_NAME, 'a').get_attribute('href')
+
+                # Find the description of each article (inside p tag)
+                description_element = WebDriverWait(article, 10).until(EC.presence_of_element_located((By.TAG_NAME, 'p')))
+                description_text = description_element.text.strip()
+
+                # Append the extracted data to the comments list
+                comments.append(description_text)
+
+                news_list.append({
+                    "title_text": title_text,
+                    "title_link": title_link,
+                    "description_text": description_text,
+                })
+
+                # return render(request , "news.html" , context)
+
+            except Exception as e:
+                print(f"An error occurred while extracting article data: {e}")
+                continue
+
+        print(f"Fetched {len(comments)} comments: {comments}")
+        request.session['news_list'] = news_list
+        return comments
+
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return []
+
+    finally:
+        driver.quit()
+
+
+
+
+def news(request):
+    # Retrieve news data from session
+    news_list = request.session.get('news_list', [])
+    return render(request, 'news.html', {'news_list': news_list})
 
 

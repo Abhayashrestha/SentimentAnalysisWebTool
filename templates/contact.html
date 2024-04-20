@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+    <br><br><br><br><br>
+    <!-- CONTACT ADDRESS AREA START -->
+    <div class="ltn__contact-address-area mt-100 mb-90">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{message.tags}} show-notification" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            <strong>{{message}}</strong>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+                <div class="col-lg-4">
+                    <div class="ltn__contact-address-item ltn__contact-address-item-3 box-shadow">
+                        <div class="ltn__contact-address-icon">
+                            <img src="{% static "img/icons/10.png" %}" alt="Icon Image">
+                        </div>
+                        <h3>Email Address</h3>
+                        <p>info@gmail.com <br>
+                            abhayafyp@gmail.com</p>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="ltn__contact-address-item ltn__contact-address-item-3 box-shadow">
+                        <div class="ltn__contact-address-icon">
+                            <img src="{% static "img/icons/11.png" %}" alt="Icon Image">
+                        </div>
+                        <h3>Phone Number</h3>
+                        <p>01-556789 <br> +987-6543210</p>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="ltn__contact-address-item ltn__contact-address-item-3 box-shadow">
+                        <div class="ltn__contact-address-icon">
+                            <img src="{% static "img/icons/12.png" %}" alt="Icon Image">
+                        </div>
+                        <h3> Address</h3>
+                        <p>Dhapakhel <br>
+                            Lalitpur , Nepal</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- CONTACT ADDRESS AREA END -->
+    <hr>
+
+    <!-- CONTACT MESSAGE AREA START -->
+    <div class="ltn__contact-message-area mb-20">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ltn__form-box contact-form-box box-shadow white-bg">
+                        <h4 class="title-2">Enquiry Form</h4>
+                        <form id="contact-form" action="{% url 'contact' %}" method="post">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="input-item input-item-name ltn__custom-icon">
+                                     {{ form.name }}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="input-item input-item-email ltn__custom-icon">
+                                         {{ form.email }}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="input-item input-item-phone ltn__custom-icon">
+                                       {{ form.phone }}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="input-item input-item-service ltn__custom-icon">
+                                        {{ form.service }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="input-item input-item-textarea ltn__custom-icon">
+                                {{ form.message }}
+                            </div>
+                            <div class="btn-wrapper mt-0">
+                                <button class="btn theme-btn-1 btn-effect-1 text-uppercase" type="submit">Submit</button>
+                            </div>
+                        </form>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- CONTACT MESSAGE AREA END -->
+    
+
+    <!-- GOOGLE MAP AREA START -->
+    <div class="google-map">
+
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d28276.95334855067!2d85.30980323624851!3d27.63630907826275!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb176b47f72e53%3A0x5075fb8e3638c5d7!2sDhapakhel%2C%20Lalitpur%2044700!5e0!3m2!1sen!2snp!4v1713281300094!5m2!1sen!2snp" width="100%" height="100%" frameborder="0" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+    </div>
+    <!-- GOOGLE MAP AREA END -->
+
+{% endblock content %}
+
