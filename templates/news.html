@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+<br><br>
+<!-- BREADCRUMB AREA START -->
+<div class="ltn__breadcrumb-area text-left bg-overlay-white-30 bg-image mt-100 p-5 " >
+    <div class="col-lg-12">
+        <div class="ltn__breadcrumb-inner">
+            <h1 class="page-title">News</h1>
+            <a href="{% url "index" %}"><span class="ltn__secondary-color"><i class="fas fa-home"></i></span> Home</a>
+        </div>
+    </div>
+</div>
+<!-- BREADCRUMB AREA END -->
+
+<!-- BLOG AREA START (blog-3) -->
+<div class="ltn__blog-area">
+    <div class="container">
+        {% if news_list %}
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="section-title text-center">News Feeds</h1>
+            </div>
+        </div>
+        <div class="row ltn__blog-slider-one-active slick-arrow-1 ltn__blog-item-3-normal">
+            <!-- Iterate over news items from session data -->
+            
+            {% for news_item in news_list %}
+            <div class="col-lg-12">
+                <div class="ltn__blog-item ltn__blog-item-3">
+                    <div class="ltn__blog-brief">
+                        <h3 class="ltn__blog-title"><a href="{{ news_item.title_link }}" style="color: red; font-weight: bold;">{{ news_item.title_text }}</a></h3>
+                        <div class="ltn__blog-meta-btn">
+                            <div class="ltn__blog-meta">
+                                <a href="{{ news_item.title_link }}" class="text-primary" style="display: inline-block; max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ news_item.title_link }}</a>
+                            </div>
+                        </div>
+                        <a href="{{ news_item.title_link }}" class="btn btn-primary p-2">Read more</a>
+                    </div>
+                    
+                </div>
+            </div>
+            {% endfor %}
+
+            {% else %}
+            <div class="col-lg-12">
+                <h1 class="section-title text-center">No news found in the session.</h1>
+            </div>
+
+            {% endif %}
+            
+        </div>
+    </div>
+</div>
+<!-- BLOG AREA END -->
+
+{% endblock content %}

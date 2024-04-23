@@ -30,59 +30,94 @@
             <div class="page-content">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-lg-12">
-                                <div class="card-body" style="max-height:600px;">
-                        
-                                    <h4 class="card-title">Bar Chart</h4>
-                                    
-                                    <h1>Sentiment Analysis Results</h1>
-                                
+                        <div class="col-lg-8">
+                            <a href="{% url 'webApp:sentiment_analysis' %}" class="btn btn-primary"><i class="fa fa-arrow-left"></i> Go Back</a>
+                            <br><br>
+                            <h3>Sentiment Analysis Results</h3>
 
-                                    <canvas id="sentimentChart"></canvas>
 
-                                    <script>
-                                        // Parse chart data JSON
-                                        var chartData = JSON.parse('{{ chart_data_json|escapejs }}');
-
-                                        // Create Chart.js chart
-                                        var ctx = document.getElementById('sentimentChart').getContext('2d');
-                                        var sentimentChart = new Chart(ctx, {
-                                            type: 'bar',
-                                            data: {
-                                                labels: chartData.labels,
-                                                datasets: [{
-                                                    label: 'Sentiment Analysis',
-                                                    data: chartData.data,
-                                                    backgroundColor: [
-                                                        'rgba(75, 192, 192, 0.2)',
-                                                        'rgba(255, 99, 132, 0.2)',
-                                                        'rgba(255, 206, 86, 0.2)'
-                                                    ],
-                                                    borderColor: [
-                                                        'rgba(75, 192, 192, 1)',
-                                                        'rgba(255, 99, 132, 1)',
-                                                        'rgba(255, 206, 86, 1)'
-                                                    ],
-                                                    borderWidth: 1
-                                                }]
-                                            },
-                                            options: {
-                                                scales: {
-                                                    y: {
-                                                        beginAtZero: true
-                                                    }
+                            <div class="card-body" style="max-height:600px;">
+                                <h4 class="card-title">Bar Chart</h4>
+                                <canvas id="sentimentChart"></canvas>
+                    
+                                <script>
+                                    // Parse chart data JSON
+                                    var chartData = JSON.parse('{{ chart_data_json|escapejs }}');
+                    
+                                    // Create Chart.js bar chart
+                                    var ctx = document.getElementById('sentimentChart').getContext('2d');
+                                    var sentimentChart = new Chart(ctx, {
+                                        type: 'bar',
+                                        data: {
+                                            labels: chartData.labels,
+                                            datasets: [{
+                                                label: 'Sentiment Analysis',
+                                                data: chartData.data,
+                                                backgroundColor: [
+                                                    'rgba(75, 192, 192, 0.2)',
+                                                    'rgba(255, 99, 132, 0.2)',
+                                                    'rgba(255, 206, 86, 0.2)'
+                                                ],
+                                                borderColor: [
+                                                    'rgba(75, 192, 192, 1)',
+                                                    'rgba(255, 99, 132, 1)',
+                                                    'rgba(255, 206, 86, 1)'
+                                                ],
+                                                borderWidth: 1
+                                            }]
+                                        },
+                                        options: {
+                                            scales: {
+                                                y: {
+                                                    beginAtZero: true
                                                 }
                                             }
-                                        });
-                                    </script>
-                                
-                                    
-                                </div> <!-- end card-body-->
+                                        }
+                                    });
+                                </script>
+                            </div> <!-- end card-body-->
                         </div> <!-- end col -->
-                        
+                    
+                        <div class="col-lg-4">
+                            <div class="card-body" style="max-height:300px;">
+                                <h4 class="card-title">Circular Chart</h4>
+                                <canvas id="circularChart"></canvas>
+                    
+                                <script>
+                                    // Parse chart data JSON
+                                    var totalData = {{ chart_data_json|safe }};
+                                    var total = totalData.total_data;
+                    
+                                    // Create Chart.js doughnut chart
+                                    var ctx2 = document.getElementById('circularChart').getContext('2d');
+                                    var circularChart = new Chart(ctx2, {
+                                        type: 'doughnut',
+                                        data: {
+                                            labels: ['Total Analayzed Data :' + total],
+                                            datasets: [{
+                                                label: 'Total Data',
+                                                data: [total],
+                                                backgroundColor: [
+                                                    'rgba(54, 162, 235, 0.5)',
+                                                ],
+                                                borderColor: [
+                                                    'rgba(54, 162, 235, 1)',
+                                                ],
+                                                borderWidth: 1
+                                            }]
+                                        },
+                                        options: {
+                                            cutout: '75%', // Adjust the cutout size as needed
+                                            responsive: true,
+                                            maintainAspectRatio: false
+                                        }
+                                    });
+                                </script>
+                            </div> <!-- end card-body-->
+                        </div> <!-- end col -->
                     </div>
                     <!-- end row-->
-
+                    
                 </div> <!-- container-fluid -->
             </div>
             <!-- End Page-content -->
